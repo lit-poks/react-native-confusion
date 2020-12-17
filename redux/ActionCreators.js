@@ -6,6 +6,7 @@ export const fetchComments = () => (dispatch) => {
     return fetch(baseUrl+'comments')
     .then(response=>{
         if(response.ok){
+            console.log(response.json());
             return response;
         }
         else{
@@ -21,7 +22,7 @@ export const fetchComments = () => (dispatch) => {
     .then(response=>response.json())
     .then(comments => dispatch(addComments(comments)))
     .catch(error=>dispatch(commentsFailed(error.message)));
-}
+};
 
 export const commentsFailed =(errmess)=> ({
     type: ActionTypes.COMMENTS_FAILED,

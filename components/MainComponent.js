@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Menu from './MenuComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import {DISHES} from '../shared/dishes';
 import Dishdetail from './DishdetailComponent';
 import Home from './HomeComponent';
 import {View,Platform,Image, StyleSheet,SafeAreaView,ScrollView,Text} from 'react-native';
@@ -10,7 +9,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator, DrawerItemList} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
+import {connect} from 'react-redux';
+import {fetchDishes,fetchComments,fetchPromos,fetchLeaders} from '../redux/ActionCreators';
 
+const mapStateToProps=state=>{
+    return {
+
+    }
+}
+
+const mapDispatchToProps = dispatch =>({
+    fetchDishes: () => dispatch(fetchDishes()),
+    fetchComments: () => dispatch(fetchComments()),
+    fetchPromos: () => dispatch(fetchPromos()),
+    fetchLeaders: () => dispatch(fetchLeaders()),
+});
 
 
 const Stack=createStackNavigator();
@@ -112,6 +125,13 @@ function MainNavigator({navigation}){
 
 class Main extends Component{
 
+    componentDidMount(){
+        this.props.fetchDishes();
+        this.props.fetchComments();
+        this.props.fetchPromos();
+        this.props.fetchLeaders();
+    }
+
     render(){
         return(
             <View style={{ flex: 1,paddingTop: Platform.OS==='ios'? 0: Expo.Constants.statusBarHeight}}>
@@ -146,4 +166,4 @@ const styles =StyleSheet.create({
     }
 })
 
-export default Main;
+export default connect(mapStateToProps,mapDispatchToProps)(Main);
