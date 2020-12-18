@@ -5,7 +5,7 @@ const styles= StyleSheet.create({
     loadingView: {
         alignItems: 'center',
         justifyContent: 'center',
-        flux: 1,
+        flex: 1,
     },
     loadingText: {
         color: '#512DA8',
